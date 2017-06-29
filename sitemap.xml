@@ -23,12 +23,6 @@
   </url>
   
   <url>
-    <loc>https://fevemania.github.io/</loc>
-    <lastmod>2017-06-28T17:44:03+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://fevemania.github.io/post/</loc>
     <lastmod>2017-06-28T17:44:03+08:00</lastmod>
     <priority>0</priority>
@@ -36,6 +30,12 @@
   
   <url>
     <loc>https://fevemania.github.io/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://fevemania.github.io/</loc>
+    <lastmod>2017-06-28T17:44:03+08:00</lastmod>
     <priority>0</priority>
   </url>
   
