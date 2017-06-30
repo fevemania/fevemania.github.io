@@ -15,7 +15,7 @@ e.g.
 Step2. 在本機端，於command line輸入以下指令，請把&lt;your-username&gt;改成你自己的username
 mkdir &lt;your-username&gt;-hugo # 建立資料夾存放網站源碼 cd &lt;your-username&gt;-hugo hugo new site . # 於目錄下創建hugo網站 (注意: 這個指令只能在空目錄下達) # 指令的Output會給你一些Hint, 包含選擇你想要的themes # 這邊我選了Minimo這個theme git init # 根據Minimo建議的方法，minimo視為本repo的依賴，且不會儲存在自己的repo中 git submodule add https://github.com/MunifTanjim/minimo themes/minimo git submodule init git submodule update # 把configuration template從themes/minimo複製到本專案root目錄 cp themes/minimo/exampleSite/config.toml . # 接下來就可以測試一下自己的網站囉 hugo server # 此指令下達後, 可在瀏覽器開localhost:1313觀看網頁的雛形 # 確認無錯誤後, 按Ctrl-C關閉server # 將fevemania.'>
 
-<meta property='og:title' content='How I Deploy This Blog With Hugo • fevemania'>
+<meta property='og:title' content='How to Deploy A Hugo Blog onto Github • fevemania'>
 <meta property='og:description' content='這篇文章留給自己與需要的人作為筆記與參考用。(貼心提示: 請務必先了解Github的操作唷！)
 用Hugo建部落格的優點在於簡潔，相對於Jeykll (自己折騰了好幾天)，Hugo的目錄結構簡單許多。然而，在部署上，它卻較Jeykll來得費功夫。本篇文章分享我試誤一整天後成功的做法。
 本篇文章基於官方文件—如何部署Hugo到Github上，並在其之上做自己實作上的補充。該文提供三種部署的做法，這邊我選用第三種做法，分別建立 存網站源碼的repo (你所編輯的部分) 以及 放實際編譯後的html, css, js的repo 。這種做法的優點是使其他人容易記住你的網址。他只要打上http://&lt;your-username&gt;.github.io，即可找到你的網站！
@@ -33,7 +33,7 @@ mkdir &lt;your-username&gt;-hugo # 建立資料夾存放網站源碼 cd &lt;your
 <meta name="generator" content="Hugo 0.24.1" />
 
   <base href='https://fevemania.github.io/'>
-  <title>How I Deploy This Blog With Hugo • fevemania</title>
+  <title>How to Deploy A Hugo Blog onto Github • fevemania</title>
   <link rel='canonical' href='https://fevemania.github.io/post/how-i-build-this-blog-with-hugo/'>
   <link href='' rel='alternate' type='application/rss+xml' title='fevemania&#39;s blog' />
   <link rel='icon' href='/favicon.ico'>
@@ -79,7 +79,7 @@ code.has-jax {font: inherit;
   <article class='entry'>
     <header class='entry-header'>
   <div class='entry-info'>
-    <h1 class='entry-title title'>How I Deploy This Blog With Hugo</h1>
+    <h1 class='entry-title title'>How to Deploy A Hugo Blog onto Github</h1>
     
   </div>
   
