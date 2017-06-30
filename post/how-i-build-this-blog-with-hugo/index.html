@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='這篇文章留給自己與需要的人作為筆記與參考用。(貼心提示: 請務必先了解Github的操作唷！)
+用Hugo建部落格的優點在於簡潔，相對於Jeykll (自己折騰了好幾天)，Hugo的目錄結構簡單許多。然而，在部署上，它卻較Jeykll來得費功夫。本篇文章分享我試誤一整天後成功的做法。
+本篇文章做法基於官方文件—如何部署Hugo到Github上做自己實作上的補充。該文提供三種部署的做法，這邊我選用第三種做法，分別建立 存網站源碼的repo (你所編輯的部分) 以及 放實際編譯後的html, css, js的repo 。這種做法的優點是使其他人容易記住你的網址。他只要打上http://&lt;your-username&gt;.github.io，即可找到你的網站！
+那接下來就開始部署流程吧 ~（本篇文章預設讀者已安裝hugo工具與git工具)
+Step1. 在Github頁面下，建兩個Repository
+一個命名為&lt;your-username&gt;-hugo用來存你編輯的部落格的資訊，另一個命名為&lt;your username&gt;.github.io用來存編譯後實際顯示的頁面。
+重點提示: repo1和repo2都不要在創建時預設任何檔案，包含.gitignore和README.md，否則後面會出錯。
+e.g.
+Step2. 在本機端，於command line輸入以下指令，請把&lt;your-username&gt;改成你自己的username
+mkdir &lt;your-username&gt;-hugo # 建立資料夾存放網站源碼 cd &lt;your-username&gt;-hugo hugo new site . # 於目錄下創建hugo網站 (注意: 這個指令只能在空目錄下達) # 指令的Output會給你一些Hint, 包含選擇你想要的themes # 這邊我選了Minimo這個theme git init # 根據Minimo建議的方法，minimo視為本repo的依賴，且不會儲存在自己的repo中 git submodule add https://github.com/MunifTanjim/minimo themes/minimo git submodule init git submodule update # 把configuration template從themes/minimo複製到本專案root目錄 cp themes/minimo/exampleSite/config.toml . # 接下來就可以測試一下自己的網站囉 hugo server # 此指令下達後, 可在瀏覽器開localhost:1313觀看網頁的雛形 # 確認無錯誤後, 按Ctrl-C關閉server # 將fevemania.'>
+
+<meta property='og:title' content='How I Deploy This Blog With Hugo • fevemania'>
+<meta property='og:description' content='這篇文章留給自己與需要的人作為筆記與參考用。(貼心提示: 請務必先了解Github的操作唷！)
+用Hugo建部落格的優點在於簡潔，相對於Jeykll (自己折騰了好幾天)，Hugo的目錄結構簡單許多。然而，在部署上，它卻較Jeykll來得費功夫。本篇文章分享我試誤一整天後成功的做法。
+本篇文章做法基於官方文件—如何部署Hugo到Github上做自己實作上的補充。該文提供三種部署的做法，這邊我選用第三種做法，分別建立 存網站源碼的repo (你所編輯的部分) 以及 放實際編譯後的html, css, js的repo 。這種做法的優點是使其他人容易記住你的網址。他只要打上http://&lt;your-username&gt;.github.io，即可找到你的網站！
+那接下來就開始部署流程吧 ~（本篇文章預設讀者已安裝hugo工具與git工具)
+Step1. 在Github頁面下，建兩個Repository
+一個命名為&lt;your-username&gt;-hugo用來存你編輯的部落格的資訊，另一個命名為&lt;your username&gt;.github.io用來存編譯後實際顯示的頁面。
+重點提示: repo1和repo2都不要在創建時預設任何檔案，包含.gitignore和README.md，否則後面會出錯。
+e.g.
+Step2. 在本機端，於command line輸入以下指令，請把&lt;your-username&gt;改成你自己的username
+mkdir &lt;your-username&gt;-hugo # 建立資料夾存放網站源碼 cd &lt;your-username&gt;-hugo hugo new site . # 於目錄下創建hugo網站 (注意: 這個指令只能在空目錄下達) # 指令的Output會給你一些Hint, 包含選擇你想要的themes # 這邊我選了Minimo這個theme git init # 根據Minimo建議的方法，minimo視為本repo的依賴，且不會儲存在自己的repo中 git submodule add https://github.com/MunifTanjim/minimo themes/minimo git submodule init git submodule update # 把configuration template從themes/minimo複製到本專案root目錄 cp themes/minimo/exampleSite/config.toml . # 接下來就可以測試一下自己的網站囉 hugo server # 此指令下達後, 可在瀏覽器開localhost:1313觀看網頁的雛形 # 確認無錯誤後, 按Ctrl-C關閉server # 將fevemania.'>
+<meta property='og:url' content='https://fevemania.github.io/post/how-i-build-this-blog-with-hugo/'>
+<meta property='og:site_name' content='fevemania&#39;s blog'>
+<meta property='og:type' content='article'><meta property='article:author' content='https://facebook.com/fevemania'><meta property='article:section' content='Post'><meta property='article:published_time' content='2017-06-30T10:55:49&#43;08:00'/><meta property='article:modified_time' content='2017-06-30T10:55:49&#43;08:00'/>
+
+<meta name="generator" content="Hugo 0.24.1" />
+
+  <base href='https://fevemania.github.io/'>
+  <title>How I Deploy This Blog With Hugo • fevemania</title>
+  <link rel='canonical' href='https://fevemania.github.io/post/how-i-build-this-blog-with-hugo/'>
+  <link href='' rel='alternate' type='application/rss+xml' title='fevemania&#39;s blog' />
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Ubuntu:400,400i,700&subset=latin'>
+<link rel='stylesheet' href='/css/main.1a43d7aa.css'>
+
+  <link rel='stylesheet' href='/css/custom.css'>
+
+
+
+<style>
+code.has-jax {font: inherit;
+              font-size: 100%;
+              background: inherit;
+              border: inherit;
+              color: #515151;}
+</style>
+<link rel="stylesheet" href="css/prism.css"/>
+</head>
+
+
+<body class='page'>
+  <div class='site'>
+    <header id='header' class='header-container'>
+      <div class='site-header'>
+        <nav id='navmenu' aria-label='Main Menu'>
+  <ul class='main-menu'>
+    
+  </ul>
+</nav>
+
+        <div class='site-info'>
+          
+          <p class='site-title title'>fevemania&#39;s blog</p>
+          
+          <p class='site-description'>Minimalist theme for Hugo</p>
+        </div>
+      </div>
+    </header>
+
+
+<main class='main'>
+  <article class='entry'>
+    <header class='entry-header'>
+  <div class='entry-info'>
+    <h1 class='entry-title title'>How I Deploy This Blog With Hugo</h1>
+    
+  </div>
+  
+<div class='meta'>
+  <span class='posted-on'>
+    <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+
+    <span class='screen-reader'>Posted on </span>
+    <time class='date' datetime='2017-06-30T10:55:49&#43;08:00'>2017, Jun 30</time>
+  </span>
+  
+  <span class='byline'>
+    <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M21,21V20c0-2.76-4-5-9-5s-9,2.24-9,5v1"/>
+  <path d="M16,6.37A4,4,0,1,1,12.63,3,4,4,0,0,1,16,6.37Z"/>
+  
+</svg>
+
+    <span class='screen-reader'> by </span>
+    fevemania
+  </span>
+  
+</div>
+
+
+</header>
+
+    <div class='entry-content'>
+  <p>這篇文章留給自己與需要的人作為筆記與參考用。(貼心提示: 請務必先了解Github的操作唷！)</p>
+
+<p>用Hugo建部落格的優點在於簡潔，相對於Jeykll (自己折騰了好幾天)，Hugo的目錄結構簡單許多。然而，在部署上，它卻較Jeykll來得費功夫。本篇文章分享我試誤一整天後成功的做法。</p>
+
+<p>本篇文章做法基於<a href="https://gohugo.io/tutorials/github-pages-blog/">官方文件—如何部署Hugo到Github上</a>做自己實作上的補充。該文提供三種部署的做法，這邊我選用第三種做法，分別建立 <strong>存網站源碼的repo (你所編輯的部分)</strong> 以及 <strong>放實際編譯後的html, css, js的repo</strong> 。這種做法的優點是使其他人容易記住你的網址。他只要打上http://&lt;your-username&gt;.github.io，即可找到你的網站！</p>
+
+<p>那接下來就開始部署流程吧 ~（本篇文章預設讀者已安裝hugo工具與git工具)</p>
+
+<p><strong>Step1.</strong> 在Github頁面下，建兩個Repository</p>
+
+<p>一個命名為<strong>&lt;your-username&gt;-hugo</strong>用來存你編輯的部落格的資訊，另一個命名為<strong>&lt;your username&gt;.github.io</strong>用來存編譯後實際顯示的頁面。</p>
+
+<p><strong>重點提示: repo1和repo2都不要在創建時預設任何檔案，包含.gitignore和README.md，否則後面會出錯。</strong></p>
+
+<p>e.g.</p>
+
+<p><img src="img/build_blog_with_hugo/repo1.png" alt="repo1" /></p>
+
+<p><img src="img/build_blog_with_hugo/repo2.png" alt="repo2" /></p>
+
+<p><strong>Step2.</strong> 在本機端，於command line輸入以下指令，請把<strong>&lt;your-username&gt;</strong>改成你自己的username</p>
+
+<pre><code class="language-bash">mkdir &lt;your-username&gt;-hugo # 建立資料夾存放網站源碼
+cd &lt;your-username&gt;-hugo
+hugo new site . # 於目錄下創建hugo網站 (注意: 這個指令只能在空目錄下達)
+				# 指令的Output會給你一些Hint, 包含選擇你想要的themes
+				# 這邊我選了Minimo這個theme
+git init
+
+# 根據Minimo建議的方法，minimo視為本repo的依賴，且不會儲存在自己的repo中
+git submodule add https://github.com/MunifTanjim/minimo themes/minimo
+git submodule init
+git submodule update
+
+# 把configuration template從themes/minimo複製到本專案root目錄
+cp themes/minimo/exampleSite/config.toml .
+
+# 接下來就可以測試一下自己的網站囉
+hugo server  
+# 此指令下達後, 可在瀏覽器開localhost:1313觀看網頁的雛形
+# 確認無錯誤後, 按Ctrl-C關閉server
+
+# 將fevemania.github.io也作為submodule，
+# 注意，此指令要連續執行兩次，第一次他會說，
+# &lt;your-username&gt;.github.io是空的而有error, 第二次會成功
+git submodule add -b master git@github.com:&lt;your-username&gt;/&lt;your-username&gt;.github.io.git public
+</code></pre>
+
+<p>​</p>
+
+<p><strong>Step3.</strong> 這一步超級重要，沒做的話，你的網頁會在沒辦法被讀取到，請用編輯器修改<strong>config.toml</strong>，將baseurl改成:</p>
+
+<pre><code class="language-vim">baseURL = &quot;https://&lt;your-username&gt;.github.io/&quot;
+</code></pre>
+
+<p>​</p>
+
+<p><strong>Step4.</strong> 再來就是部署網頁到&lt;your-username&gt;.github.io，這邊用的是官方提供的deploy.sh腳本做自動化部署。</p>
+
+<ul>
+<li>deploy.sh:</li>
+</ul>
+
+<pre><code class="language-bash">#!/bin/bash
+
+echo -e &quot;\033[0;32mDeploying updates to GitHub...\033[0m&quot;
+
+# Build the project.
+hugo # if using a theme, replace by `hugo -t &lt;yourtheme&gt;`
+
+# Go To Public folder
+cd public
+# Add changes to git.
+git add -A
+
+# Commit changes.
+msg=&quot;rebuilding site `date`&quot;
+if [ $# -eq 1 ]
+  then msg=&quot;$1&quot;
+fi
+git commit -m &quot;$msg&quot;
+
+# Push source and build repos.
+git push origin master
+
+# Come Back
+cd ..
+</code></pre>
+
+<p>這個腳本會透過hugo指令將你的網站源碼編譯成html, css, js等實際顯示的檔案，並通過覆寫在public目錄下，這個目錄正是連接&lt;your-username&gt;.github.io的目錄，永遠不需要手動修改裡面的任何檔案。<strong>所以，如果最前面你在Github頁面建立&lt;your-username&gt;.github.io時，自動添加.gitignore或者README.md都會導致這個腳本在push階段產生本機檔案與遠端檔案不一致，而發生錯誤喔！</strong></p>
+
+<p><strong>Note:</strong> 要用chmod +x deploy.sh把它改成可執行檔。</p>
+
+<ul>
+<li>執行deploy.sh，這時, 你已經可以在&lt;your-username&gt;.github.io看到你自己的網頁囉! (可能延遲一兩分鐘)</li>
+</ul>
+
+<pre><code class="language-bash">  ./deploy.sh
+</code></pre>
+
+<p>​</p>
+
+<p><strong>Step5.</strong> 加入.gitignore</p>
+
+<pre><code class="language-bash">public # 務必加入這個, public不屬於網站源碼，不需要存在&lt;your-username&gt;-hugo的Repo中
+
+# 可以加入其他你不想要加入版控的檔案
+</code></pre>
+
+<p>​</p>
+
+<p><strong>Step6.</strong> 是時候做Initial Commit了！</p>
+
+<pre><code class="language-bash">touch README.md
+git add .
+git commit -m &quot;first commit&quot;
+git remote add origin git@github.com:&lt;your-username&gt;/&lt;your-username&gt;-hugo.git
+git push -u origin master
+</code></pre>
+
+<p>​</p>
+
+<p>大功告成~~</p>
+
+<p>接下來，你可以修改config.toml去客製一些設定。</p>
+
+<p>之後，每當你改變網站源碼後，可以透過<strong>&lt;your-username&gt;-hugo</strong>提交，</p>
+
+<p>而如果要改變網頁實際顯示，只需執行deploy.sh就ok了！</p>
+
+</div>
+
+    
+<footer class='entry-footer'>
+  
+    
+  
+    
+  
+</footer>
+
+
+  </article>
+
+  
+    
+<nav class='entry-nav'>
+  <div class='entry-nav-links'><div class='prev-entry'>
+      <a href='https://fevemania.github.io/post/matplotlib-figure-vs-axes/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+Previous
+        </span>
+        <span class='screen-reader'>Previous post: </span>Intro Matplotlib, What is different in Axes and Figure ?</a>
+    </div></div>
+</nav>
+
+
+  
+
+  
+    <div class='comments-container'>
+  
+</div>
+
+  
+</main>
+
+    <footer id='footer' class='footer-container'>
+      <div class='footer'>
+        <div class='social'>
+          <nav aria-label='Social Menu'>
+  <ul class='social-menu'>
+  
+    
+    <li>
+      <a href='https://facebook.com/fevemania' target='_blank' rel='noopener'>
+        <span class='screen-reader'>Open Facebook account in new tab</span>
+        <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+
+      </a>
+    </li>
+    
+  
+    
+    <li>
+      <a href='https://github.com/fevemania/fevemania-hugo' target='_blank' rel='noopener'>
+        <span class='screen-reader'>Open Github account in new tab</span>
+        <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+
+      </a>
+    </li>
+    
+  
+  </ul>
+</nav>
+
+        </div>
+
+        <div class='copyright'>
+          <p>
+    
+  
+  &copy; 2017 MunifTanjim</p>
+
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src='/js/main.ddafc274.js'></script>
+  
+    <script src='/js/custom.js'></script>
+  
+
+<script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax();
+  var i = 0;
+  var len = all.length;
+  while(i != all.length)
+    all[i++].SourceElement().parentNode.className += ' has-jax';
+  
+});
+
+</script>
+
+<script src="js/prism.js"></script>
+
+</body>
+
+</html>
+
