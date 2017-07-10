@@ -5,9 +5,19 @@
     <link>https://fevemania.github.io/tags/</link>
     <description>Recent content in Tags on fevemania&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 30 Jun 2017 10:55:49 +0800</lastBuildDate>
     
 	<atom:link href="https://fevemania.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Hugo</title>
+      <link>https://fevemania.github.io/tags/hugo/</link>
+      <pubDate>Fri, 30 Jun 2017 10:55:49 +0800</pubDate>
+      
+      <guid>https://fevemania.github.io/tags/hugo/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>
