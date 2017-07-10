@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on fevemania&#39;s blog</title>
+    <link>https://fevemania.github.io/tags/python/</link>
+    <description>Recent content in Python on fevemania&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 28 Jun 2017 17:44:03 +0800</lastBuildDate>
+    
+	<atom:link href="https://fevemania.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Intro Matplotlib, What is different in Axes and Figure ?</title>
+      <link>https://fevemania.github.io/blog/matplotlib-figure-vs-axes/</link>
+      <pubDate>Wed, 28 Jun 2017 17:44:03 +0800</pubDate>
+      
+      <guid>https://fevemania.github.io/blog/matplotlib-figure-vs-axes/</guid>
+      <description>Whenever we need to visualize some image, statistical chart, or even data in python, Matplotlib the Python 2D plotting library, usually comes into mind.
+Though we could just search for someone&amp;rsquo;s code whenever we need plot some kinds of chart, such as histogram, piechart. However, I believed there are still a little bit concepts we could be familiar with at the beginning of learning Matplotlib library to help get more sense of it and be able to make a good tune to our chart whenever we use it.</description>
+    </item>
+    
+  </channel>
+</rss>

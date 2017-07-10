@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='今天嘗試寫中文版的Post，接續昨天的Po文，Histograms Equalization 可以用在深度學習中針對圖片資料對比度太低的問題進行預處理 (data prepocessing)。
+以下舉一個例子，這個資料集是GTSRB (German Traffic Sign Recognition Benchmark)，裡面有43種不同的路標，被用來訓練機器辨識路標號誌。
+下圖為 限速60 的號誌，如圖可知，在不同的光影變化下，對像素強度的影響很大，會影響機器的視覺 (機器看到的就是一個個像素，如果像素值都很接近，那機器怎麼會能正確分辨出60呢 ?)
+若我們將圖片轉為灰階 (簡單講就是將彩色圖片轉成黑白圖片)，並應用上一篇Po文的Global Histogram Equalization，那麼輸出結果將透過把整張像素的值分散化，改善對比度。從人的視覺角度看就是圖片對比度增強，對機器來說則是 使其更易將特定特徵 (想識別的對象) 與其背景(即特徵以外的地方) 做分離。
+然而，就像上篇Po文提到的，Global Histogram Equalization的做法就是盲目地平均化整張圖片的像素強度，所以可能會導致像5370圖的情形，發生資訊的遺失 (像素被平均化)，讓分佈在60的像素值相對變低。
+所以今天要介紹另一個實務上更為常用的 Contrast Limited Adaptive Histogram Equalization。
+用一句話解釋，就是改成把整個圖片切成一個個block做局部正規化。
+更多資料可見維基百科-AHE
+實作細節可見OpenCV'>
+
+<meta property='og:title' content='Contrast Limited Adaptive Histogram Equalization • fevemania&#39;s blog'>
+<meta property='og:description' content='今天嘗試寫中文版的Post，接續昨天的Po文，Histograms Equalization 可以用在深度學習中針對圖片資料對比度太低的問題進行預處理 (data prepocessing)。
+以下舉一個例子，這個資料集是GTSRB (German Traffic Sign Recognition Benchmark)，裡面有43種不同的路標，被用來訓練機器辨識路標號誌。
+下圖為 限速60 的號誌，如圖可知，在不同的光影變化下，對像素強度的影響很大，會影響機器的視覺 (機器看到的就是一個個像素，如果像素值都很接近，那機器怎麼會能正確分辨出60呢 ?)
+若我們將圖片轉為灰階 (簡單講就是將彩色圖片轉成黑白圖片)，並應用上一篇Po文的Global Histogram Equalization，那麼輸出結果將透過把整張像素的值分散化，改善對比度。從人的視覺角度看就是圖片對比度增強，對機器來說則是 使其更易將特定特徵 (想識別的對象) 與其背景(即特徵以外的地方) 做分離。
+然而，就像上篇Po文提到的，Global Histogram Equalization的做法就是盲目地平均化整張圖片的像素強度，所以可能會導致像5370圖的情形，發生資訊的遺失 (像素被平均化)，讓分佈在60的像素值相對變低。
+所以今天要介紹另一個實務上更為常用的 Contrast Limited Adaptive Histogram Equalization。
+用一句話解釋，就是改成把整個圖片切成一個個block做局部正規化。
+更多資料可見維基百科-AHE
+實作細節可見OpenCV'>
+<meta property='og:url' content='https://fevemania.github.io/blog/local-histogram-normalization/'>
+<meta property='og:site_name' content='fevemania&#39;s blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Blog'><meta property='article:tag' content='OpenCV'><meta property='article:tag' content='Deep Learning'><meta property='article:published_time' content='2017-06-28T17:36:07&#43;08:00'/><meta property='article:modified_time' content='2017-06-28T17:36:07&#43;08:00'/>
+
+<meta name="generator" content="Hugo 0.24.1" />
+
+  <base href='https://fevemania.github.io/'>
+  <title>Contrast Limited Adaptive Histogram Equalization • fevemania&#39;s blog</title>
+  <link rel='canonical' href='https://fevemania.github.io/blog/local-histogram-normalization/'>
+  <link href='' rel='alternate' type='application/rss+xml' title='fevemania&#39;s blog' />
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Ubuntu:400,400i,700&subset=latin'>
+<link rel='stylesheet' href='/css/main.d02777fd.css'>
+
+  <link rel='stylesheet' href='/css/custom.css'>
+
+
+
+
+<style>
+code.has-jax {font: inherit;
+              font-size: 100%;
+              background: inherit;
+              border: inherit;
+              color: #515151;}
+</style>
+<link rel="stylesheet" href="css/prism.css"/>
+
+</head>
+
+
+<body class='page'>
+  <div class='site'>
+    <header id='header' class='header-container'>
+      <div class='site-header'>
+        <nav id='navmenu' aria-label='Main Menu'>
+  <ul class='main-menu'>
+    
+    <li>
+      <a href='/'>Home
+		
+      </a>
+    </li>
+    
+    <li>
+      <a href='/blog/'>Blog
+		
+      </a>
+    </li>
+    
+    <li>
+      <a href='https://fevemania.github.io/'>
+		
+      </a>
+    </li>
+    
+  </ul>
+</nav>
+
+        <div class='site-info'>
+          
+          <p class='site-title title'>fevemania&#39;s blog</p>
+          
+          <p class='site-description'>Minimalist theme for Hugo</p>
+        </div>
+      </div>
+    </header>
+
+
+<main class='main'>
+  <article lang='en' class='entry'>
+    <header class='entry-header'>
+  <div class='entry-info'>
+    <h1 class='entry-title title'>Contrast Limited Adaptive Histogram Equalization</h1>
+    
+  </div>
+  
+<div class='meta'>
+  <span class='posted-on'>
+    <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+
+    <span class='screen-reader'>Posted on </span>
+    <time class='date' datetime='2017-06-28T17:36:07&#43;08:00'>2017, Jun 28</time>
+  </span>
+  
+</div>
+
+
+</header>
+
+    <div class='entry-content'>
+  <p>今天嘗試寫中文版的Post，接續昨天的Po文，Histograms Equalization 可以用在深度學習中針對圖片資料對比度太低的問題進行預處理 (data prepocessing)。</p>
+
+<p>以下舉一個例子，這個資料集是GTSRB (German Traffic Sign Recognition Benchmark)，裡面有43種不同的路標，被用來訓練機器辨識路標號誌。</p>
+
+<p>下圖為  <em>限速60</em> 的號誌，如圖可知，在不同的光影變化下，對像素強度的影響很大，會影響機器的視覺 (機器看到的就是一個個像素，如果像素值都很接近，那機器怎麼會能正確分辨出<code>60</code>呢 ?)</p>
+
+<p><img src="img/global_hist_equalize/before.png" alt="limit-60-(1)" /></p>
+
+<p>若我們將圖片轉為灰階 (簡單講就是將彩色圖片轉成黑白圖片)，並應用上一篇Po文的Global Histogram Equalization，那麼輸出結果將透過把整張像素的值分散化，改善對比度。從人的視覺角度看就是圖片對比度增強，對機器來說則是 使其更易將特定特徵 (想識別的對象) 與其背景(即特徵以外的地方) 做分離。</p>
+
+<p><img src="img/global_hist_equalize/after_1.png" alt="limit-60-(2)" /></p>
+
+<p>然而，就像上篇Po文提到的，Global Histogram Equalization的做法就是盲目地平均化整張圖片的像素強度，所以可能會導致像5370圖的情形，發生資訊的遺失 (像素被平均化)，讓分佈在<code>60</code>的像素值相對變低。</p>
+
+<p>所以今天要介紹另一個實務上更為常用的 Contrast Limited Adaptive Histogram Equalization。</p>
+
+<p>用一句話解釋，就是改成把整個圖片切成一個個block做局部正規化。</p>
+
+<p><img src="img/global_hist_equalize/after_2.png" alt="limit-70" /></p>
+
+<p>更多資料可見<a href="https://en.wikipedia.org/wiki/Adaptive_histogram_equalization#Contrast_Limited_AHE">維基百科-AHE</a></p>
+
+<p>實作細節可見<a href="http://docs.opencv.org/3.2.0/d5/daf/tutorial_py_histogram_equalization.html">OpenCV</a></p>
+
+</div>
+
+    
+<footer class='entry-footer'>
+  
+    
+  
+    
+      
+      
+
+<div class='tags'>
+  <span class='tag-icon'>
+    <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+
+  </span>
+  <span class='screen-reader'>Tags: </span><a class='tag' href='/tags/opencv'>OpenCV</a>, <a class='tag' href='/tags/deep-learning'>Deep Learning</a></div>
+
+    
+  
+</footer>
+
+
+  </article>
+
+  
+    
+<nav class='entry-nav'>
+  <div class='entry-nav-links'><div class='prev-entry'>
+      <a href='https://fevemania.github.io/blog/global-histogram-equalization/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader'>Previous post: </span>Global Histogram Equalization</a>
+    </div><div class='next-entry'>
+      <a href='https://fevemania.github.io/blog/matplotlib-figure-vs-axes/'>
+        <span class='screen-reader'>Next post: </span>Intro Matplotlib, What is different in Axes and Figure ?<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="4" y1="12" x2="20" y2="12"/>
+  <polyline points="14 6 20 12 14 18"/>
+  
+</svg>
+</span>
+      </a>
+    </div></div>
+</nav>
+
+
+  
+
+  
+    <div class='comments-container'>
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'fevemania-github-io';
+    var disqus_identifier = 'https:\/\/fevemania.github.io\/blog\/local-histogram-normalization\/';
+    var disqus_title = 'Contrast Limited Adaptive Histogram Equalization';
+    var disqus_url = 'https:\/\/fevemania.github.io\/blog\/local-histogram-normalization\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+  
+</main>
+
+    <footer id='footer' class='footer-container'>
+      <div class='footer'>
+        <div class='social'>
+          <nav aria-label='Social Menu'>
+  <ul class='social-menu'>
+  
+  </ul>
+</nav>
+
+        </div>
+
+        <div class='copyright'>
+          <p>
+    
+  
+  &copy; 2017 MunifTanjim</p>
+
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src='/js/main.af838dd5.js'></script>
+  
+    <script src='/js/custom.js'></script>
+  
+  
+  
+  <script type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\[','\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+           extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+  </script>
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax();
+    var i = 0;
+    var len = all.length;
+    while(i != all.length)
+      all[i++].SourceElement().parentNode.className += ' has-jax';
+    
+  });
+
+  </script>
+
+  <script src="js/prism.js"></script>
+
+</body>
+
+</html>
+

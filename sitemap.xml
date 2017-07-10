@@ -3,28 +3,42 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://fevemania.github.io/post/how-i-build-this-blog-with-hugo/</loc>
+    <loc>https://fevemania.github.io/</loc>
     <lastmod>2017-06-30T10:55:49+08:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://fevemania.github.io/post/matplotlib-figure-vs-axes/</loc>
+    <loc>https://fevemania.github.io/blog/</loc>
+    <lastmod>2017-06-30T10:55:49+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://fevemania.github.io/blog/how-i-build-this-blog-with-hugo/</loc>
+    <lastmod>2017-06-30T10:55:49+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://fevemania.github.io/blog/matplotlib-figure-vs-axes/</loc>
     <lastmod>2017-06-28T17:44:03+08:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://fevemania.github.io/post/local-histogram-normalization/</loc>
+    <loc>https://fevemania.github.io/blog/local-histogram-normalization/</loc>
     <lastmod>2017-06-28T17:36:07+08:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://fevemania.github.io/post/global-histogram-equalization/</loc>
+    <loc>https://fevemania.github.io/blog/global-histogram-equalization/</loc>
     <lastmod>2017-06-28T15:08:50+08:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -37,6 +51,13 @@
   </url>
   
   <url>
+    <loc>https://fevemania.github.io/tags/deep-learning/</loc>
+    <lastmod>2017-06-28T17:36:07+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://fevemania.github.io/tags/hugo/</loc>
     <lastmod>2017-06-30T10:55:49+08:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -44,22 +65,36 @@
   </url>
   
   <url>
-    <loc>https://fevemania.github.io/post/</loc>
-    <lastmod>2017-06-30T10:55:49+08:00</lastmod>
+    <loc>https://fevemania.github.io/tags/matplotlib/</loc>
+    <lastmod>2017-06-28T17:44:03+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://fevemania.github.io/tags/opencv/</loc>
+    <lastmod>2017-06-28T17:36:07+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://fevemania.github.io/tags/python/</loc>
+    <lastmod>2017-06-28T17:44:03+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://fevemania.github.io/categories/python-library/</loc>
+    <lastmod>2017-06-28T17:44:03+08:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://fevemania.github.io/tags/</loc>
-    <lastmod>2017-06-30T10:55:49+08:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://fevemania.github.io/</loc>
-    <lastmod>2017-06-30T10:55:49+08:00</lastmod>
+    <lastmod>2017-06-28T17:36:07+08:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0</priority>
   </url>

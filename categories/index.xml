@@ -9,5 +9,14 @@
 	<atom:link href="https://fevemania.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
+    <item>
+      <title>Python Library</title>
+      <link>https://fevemania.github.io/categories/python-library/</link>
+      <pubDate>Wed, 28 Jun 2017 17:44:03 +0800</pubDate>
+      
+      <guid>https://fevemania.github.io/categories/python-library/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

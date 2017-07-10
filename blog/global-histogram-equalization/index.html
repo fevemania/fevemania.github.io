@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='What Histogram Equalization does is to improve the contrast of the image.
+The picture above shows distribution of pixel intensity in grayscale.
+x-axis : The intensity value ranged from 0 - 255. y-axis : The number of pixel given the particular intensity value.
+pros: be useful in images with backgrounds and foregrounds that are both bright or both dark.
+cons: comes along with a side-effect which may indiscriminately increase the contrast of background noise.'>
+
+<meta property='og:title' content='Global Histogram Equalization • fevemania&#39;s blog'>
+<meta property='og:description' content='What Histogram Equalization does is to improve the contrast of the image.
+The picture above shows distribution of pixel intensity in grayscale.
+x-axis : The intensity value ranged from 0 - 255. y-axis : The number of pixel given the particular intensity value.
+pros: be useful in images with backgrounds and foregrounds that are both bright or both dark.
+cons: comes along with a side-effect which may indiscriminately increase the contrast of background noise.'>
+<meta property='og:url' content='https://fevemania.github.io/blog/global-histogram-equalization/'>
+<meta property='og:site_name' content='fevemania&#39;s blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Blog'><meta property='article:tag' content='OpenCV'><meta property='article:published_time' content='2017-06-28T15:08:50&#43;08:00'/><meta property='article:modified_time' content='2017-06-28T15:08:50&#43;08:00'/>
+
+<meta name="generator" content="Hugo 0.24.1" />
+
+  <base href='https://fevemania.github.io/'>
+  <title>Global Histogram Equalization • fevemania&#39;s blog</title>
+  <link rel='canonical' href='https://fevemania.github.io/blog/global-histogram-equalization/'>
+  <link href='' rel='alternate' type='application/rss+xml' title='fevemania&#39;s blog' />
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Ubuntu:400,400i,700&subset=latin'>
+<link rel='stylesheet' href='/css/main.d02777fd.css'>
+
+  <link rel='stylesheet' href='/css/custom.css'>
+
+
+
+
+<style>
+code.has-jax {font: inherit;
+              font-size: 100%;
+              background: inherit;
+              border: inherit;
+              color: #515151;}
+</style>
+<link rel="stylesheet" href="css/prism.css"/>
+
+</head>
+
+
+<body class='page'>
+  <div class='site'>
+    <header id='header' class='header-container'>
+      <div class='site-header'>
+        <nav id='navmenu' aria-label='Main Menu'>
+  <ul class='main-menu'>
+    
+    <li>
+      <a href='/'>Home
+		
+      </a>
+    </li>
+    
+    <li>
+      <a href='/blog/'>Blog
+		
+      </a>
+    </li>
+    
+    <li>
+      <a href='https://fevemania.github.io/'>
+		
+      </a>
+    </li>
+    
+  </ul>
+</nav>
+
+        <div class='site-info'>
+          
+          <p class='site-title title'>fevemania&#39;s blog</p>
+          
+          <p class='site-description'>Minimalist theme for Hugo</p>
+        </div>
+      </div>
+    </header>
+
+
+<main class='main'>
+  <article lang='en' class='entry'>
+    <header class='entry-header'>
+  <div class='entry-info'>
+    <h1 class='entry-title title'>Global Histogram Equalization</h1>
+    
+  </div>
+  
+<div class='meta'>
+  <span class='posted-on'>
+    <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+
+    <span class='screen-reader'>Posted on </span>
+    <time class='date' datetime='2017-06-28T15:08:50&#43;08:00'>2017, Jun 28</time>
+  </span>
+  
+</div>
+
+
+</header>
+
+    <div class='entry-content'>
+  <p>What <strong>Histogram Equalization</strong> does is to improve the contrast of the image.</p>
+
+<p><img src="http://docs.opencv.org/3.1.0/histogram_equalization.png" alt="hist" /></p>
+
+<p>The picture above shows distribution of pixel intensity in grayscale.</p>
+
+<p><strong>x-axis</strong> : The intensity value ranged from 0 - 255.</br>
+<strong>y-axis</strong> : The number of pixel given the particular intensity value.</p>
+
+<p><strong>pros</strong>: be useful in images with backgrounds and foregrounds that are both bright or both dark.</p>
+
+<p><strong>cons</strong>: comes along with a side-effect which may indiscriminately increase the contrast of background noise.</p>
+
+<hr />
+
+<p>Before introduce histogram equlization, here&rsquo;s a question. </br>
+<strong>What is the difference between Histogram Equalization and Normalization ?</strong> Aren&rsquo;t they both do something like stretch out the range of pixel intensity distribution?</p>
+
+<p>This <a href="http://sebastianraschka.com/Articles/2014_about_feature_scaling.html#z-score-standardization-or-min-max-scaling">link</a> has the comprehensive comparison about Histogram Equalization and contract strectching (also named as Normalization)</p>
+
+<hr />
+
+<p>Ok, Let&rsquo;s dive into how global histogram equalization works.</p>
+
+<p>Take the grayscale picture below as an instance:</p>
+
+<ul>
+<li><p><strong>cdf (x)</strong> :  the cumulative number of pixels with intensity below x.</p></li>
+
+<li><p><strong>Max_hist</strong> :  Max intensity of whole picture. (that is, the highest value of the histogram)</p></li>
+
+<li><p><strong>Max_cdf</strong>   :  Max cdf value of whole cdf distribution.</p></li>
+</ul>
+
+<p>In order to show the trend of cdf relative to intensity value, we need to normalize cdf with</p>
+
+<div>$$ cdf\_normalize = \frac{Max\_hist * cdf(x)} {Max\_cdf} $$</div>
+
+<p><img src="img/global_hist_equalize/hist.png" alt="hist" />
+<img src="img/global_hist_equalize/before_after.png" alt="result" /></p>
+
+<p><em>Note:  You can apply histogram both on grayscale (1-channel) and RGB image (3-channels). For RGB image case, you should first convert RGB colorspace to other colorspace such as YUV which can seperate luminance signal (Y) and chrominance signal (U, V). Cause you may just want contrast and brightness to be adjust, not on color.</em></p>
+
+<p>For more application details, please see <a href="https://en.wikipedia.org/wiki/Histogram_equalization">Wikipedia of Histogram equalization</a>.</p>
+
+<p>For implementation on Numpy or OpenCV, look at <a href="http://www.ques10.com/p/5967/compare-between-contract-stretching-and-histogra-1/">OpenCV documentation</a>.</p>
+
+</div>
+
+    
+<footer class='entry-footer'>
+  
+    
+  
+    
+      
+      
+
+<div class='tags'>
+  <span class='tag-icon'>
+    <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+
+  </span>
+  <span class='screen-reader'>Tags: </span><a class='tag' href='/tags/opencv'>OpenCV</a></div>
+
+    
+  
+</footer>
+
+
+  </article>
+
+  
+    
+<nav class='entry-nav'>
+  <div class='entry-nav-links'><div class='next-entry'>
+      <a href='https://fevemania.github.io/blog/local-histogram-normalization/'>
+        <span class='screen-reader'>Next post: </span>Contrast Limited Adaptive Histogram Equalization<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="4" y1="12" x2="20" y2="12"/>
+  <polyline points="14 6 20 12 14 18"/>
+  
+</svg>
+</span>
+      </a>
+    </div></div>
+</nav>
+
+
+  
+
+  
+    <div class='comments-container'>
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'fevemania-github-io';
+    var disqus_identifier = 'https:\/\/fevemania.github.io\/blog\/global-histogram-equalization\/';
+    var disqus_title = 'Global Histogram Equalization';
+    var disqus_url = 'https:\/\/fevemania.github.io\/blog\/global-histogram-equalization\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+  
+</main>
+
+    <footer id='footer' class='footer-container'>
+      <div class='footer'>
+        <div class='social'>
+          <nav aria-label='Social Menu'>
+  <ul class='social-menu'>
+  
+  </ul>
+</nav>
+
+        </div>
+
+        <div class='copyright'>
+          <p>
+    
+  
+  &copy; 2017 MunifTanjim</p>
+
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src='/js/main.af838dd5.js'></script>
+  
+    <script src='/js/custom.js'></script>
+  
+  
+  
+  <script type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\[','\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+           extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+  </script>
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax();
+    var i = 0;
+    var len = all.length;
+    while(i != all.length)
+      all[i++].SourceElement().parentNode.className += ' has-jax';
+    
+  });
+
+  </script>
+
+  <script src="js/prism.js"></script>
+
+</body>
+
+</html>
+

@@ -5,10 +5,19 @@
     <link>https://fevemania.github.io/tags/</link>
     <description>Recent content in Tags on fevemania&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 30 Jun 2017 10:55:49 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 28 Jun 2017 17:36:07 +0800</lastBuildDate>
     
 	<atom:link href="https://fevemania.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Deep Learning</title>
+      <link>https://fevemania.github.io/tags/deep-learning/</link>
+      <pubDate>Wed, 28 Jun 2017 17:36:07 +0800</pubDate>
+      
+      <guid>https://fevemania.github.io/tags/deep-learning/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Hugo</title>
@@ -16,6 +25,33 @@
       <pubDate>Fri, 30 Jun 2017 10:55:49 +0800</pubDate>
       
       <guid>https://fevemania.github.io/tags/hugo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Matplotlib</title>
+      <link>https://fevemania.github.io/tags/matplotlib/</link>
+      <pubDate>Wed, 28 Jun 2017 17:44:03 +0800</pubDate>
+      
+      <guid>https://fevemania.github.io/tags/matplotlib/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OpenCV</title>
+      <link>https://fevemania.github.io/tags/opencv/</link>
+      <pubDate>Wed, 28 Jun 2017 17:36:07 +0800</pubDate>
+      
+      <guid>https://fevemania.github.io/tags/opencv/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>https://fevemania.github.io/tags/python/</link>
+      <pubDate>Wed, 28 Jun 2017 17:44:03 +0800</pubDate>
+      
+      <guid>https://fevemania.github.io/tags/python/</guid>
       <description></description>
     </item>
     

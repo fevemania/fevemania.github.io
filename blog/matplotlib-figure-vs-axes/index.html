@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='Whenever we need to visualize some image, statistical chart, or even data in python, Matplotlib the Python 2D plotting library, usually comes into mind.
+Though we could just search for someone&rsquo;s code whenever we need plot some kinds of chart, such as histogram, piechart. However, I believed there are still a little bit concepts we could be familiar with at the beginning of learning Matplotlib library to help get more sense of it and be able to make a good tune to our chart whenever we use it.'>
+
+<meta property='og:title' content='Intro Matplotlib, What is different in Axes and Figure ? • fevemania&#39;s blog'>
+<meta property='og:description' content='Whenever we need to visualize some image, statistical chart, or even data in python, Matplotlib the Python 2D plotting library, usually comes into mind.
+Though we could just search for someone&rsquo;s code whenever we need plot some kinds of chart, such as histogram, piechart. However, I believed there are still a little bit concepts we could be familiar with at the beginning of learning Matplotlib library to help get more sense of it and be able to make a good tune to our chart whenever we use it.'>
+<meta property='og:url' content='https://fevemania.github.io/blog/matplotlib-figure-vs-axes/'>
+<meta property='og:site_name' content='fevemania&#39;s blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Blog'><meta property='article:tag' content='python'><meta property='article:tag' content='Matplotlib'><meta property='article:published_time' content='2017-06-28T17:44:03&#43;08:00'/><meta property='article:modified_time' content='2017-06-28T17:44:03&#43;08:00'/>
+
+<meta name="generator" content="Hugo 0.24.1" />
+
+  <base href='https://fevemania.github.io/'>
+  <title>Intro Matplotlib, What is different in Axes and Figure ? • fevemania&#39;s blog</title>
+  <link rel='canonical' href='https://fevemania.github.io/blog/matplotlib-figure-vs-axes/'>
+  <link href='' rel='alternate' type='application/rss+xml' title='fevemania&#39;s blog' />
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Ubuntu:400,400i,700&subset=latin'>
+<link rel='stylesheet' href='/css/main.d02777fd.css'>
+
+  <link rel='stylesheet' href='/css/custom.css'>
+
+
+
+
+<style>
+code.has-jax {font: inherit;
+              font-size: 100%;
+              background: inherit;
+              border: inherit;
+              color: #515151;}
+</style>
+<link rel="stylesheet" href="css/prism.css"/>
+
+</head>
+
+
+<body class='page'>
+  <div class='site'>
+    <header id='header' class='header-container'>
+      <div class='site-header'>
+        <nav id='navmenu' aria-label='Main Menu'>
+  <ul class='main-menu'>
+    
+    <li>
+      <a href='/'>Home
+		
+      </a>
+    </li>
+    
+    <li>
+      <a href='/blog/'>Blog
+		
+      </a>
+    </li>
+    
+    <li>
+      <a href='https://fevemania.github.io/'>
+		
+      </a>
+    </li>
+    
+  </ul>
+</nav>
+
+        <div class='site-info'>
+          
+          <p class='site-title title'>fevemania&#39;s blog</p>
+          
+          <p class='site-description'>Minimalist theme for Hugo</p>
+        </div>
+      </div>
+    </header>
+
+
+<main class='main'>
+  <article lang='en' class='entry'>
+    <header class='entry-header'>
+  <div class='entry-info'>
+    <h1 class='entry-title title'>Intro Matplotlib, What is different in Axes and Figure ?</h1>
+    
+  </div>
+  
+<div class='meta'>
+  <span class='posted-on'>
+    <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+
+    <span class='screen-reader'>Posted on </span>
+    <time class='date' datetime='2017-06-28T17:44:03&#43;08:00'>2017, Jun 28</time>
+  </span>
+  
+</div>
+
+
+</header>
+
+    <div class='entry-content'>
+  
+
+<p>Whenever we need to visualize some image, statistical chart, or even data in python, <a href="https://matplotlib.org/">Matplotlib</a> the Python 2D plotting library, usually comes into mind.</p>
+
+<p>Though we could just search for someone&rsquo;s code whenever we need plot some kinds of chart, such as histogram, piechart. However, I believed there are still a little bit concepts we could be familiar with at the beginning of learning Matplotlib library to help get more sense of it and be able to make a good tune to our chart whenever we use it.</p>
+
+<p>The following explanation refer to <a href="http://matplotlib.org/faq/usage_faq.html#general-concepts">These general Concepts</a>.</p>
+
+<h3 id="strong-everything-in-matplotlib-is-organized-in-a-hierarchy-strong"><strong>Everything in Matplotlib is organized in a hierarchy.</strong></h3>
+
+<p><code>Top-level</code>: the matplotlib&rsquo;s “state-machine environment” (provided by <code>matplotlib.pyplot</code>)</p>
+
+<p><code>Second-level</code>:  the first level of the object-oriented interface, in which pyplot is used only for a few functions such as figure creation.</p>
+
+<blockquote>
+<p><strong>Note: Official documatation recommands, for non-interactive plotting, it is suggested to use pyplot to create the figures and then the OO interface for plotting.</strong></p>
+</blockquote>
+
+<p>According to hierarchy, there are three common comfusing objects: <strong>figure</strong>, <strong>axes</strong>, and <strong>axis</strong>.</p>
+
+<p>In a nutshell, one <code>figure</code> object contains <strong>one or more</strong> <code>axes</code> objects,  and one <code>axes</code> object contains <strong>at least two</strong> <code>axis</code> objects.</p>
+
+<p>Usually,  the axes objects within the figure are used for most plotting actions.</p>
+
+<p>The image below shows the componenet of a figure object.</p>
+
+<p><img src="http://matplotlib.org/_images/anatomy1.png" alt="image from Matplotlib doc" /></p>
+
+<p>The easiest way to create a new figure is :</p>
+
+<pre><code class="language-python">fig = plt.figure()   # an empty figure with no axes
+# a figure with a 2x2 grid of Axes
+fig, axes = plt.subplots(2, 2) 
+</code></pre>
+
+<p><strong>Axes</strong>: This is what you think of as &lsquo;a plot&rsquo;.</p>
+
+<p><strong>Axis</strong>: The number-line-like object which takes care of something like setting the data limits and generating the ticks. (the marks on the axis).</p>
+
+<p>e.g.</p>
+
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+val = 3 + 5 * np.random.rand(3) # each 
+pos = np.arange(3) + 0.5 # the bar centers on the y axis
+
+labels = ['Tom', 'Tim', 'Sam']
+
+# a figure with a 1x2 grid of Axes
+fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(10,3)) 
+axes[0].barh(pos, val, align='center', color='b')
+axes[0].set_yticks(pos)
+axes[0].set_yticklabels(labels)
+
+axes[1].bar(pos, val, align='center', color='r')
+axes[1].set_xticks(pos)
+axes[1].set_xticklabels(labels)
+</code></pre>
+
+<p>result:</p>
+
+<p><img src="img/ticks.png" alt="bar chart" /></p>
+
+</div>
+
+    
+<footer class='entry-footer'>
+  
+    
+      
+      
+
+<div class='categories'>
+  <span class='category-icon'>
+    <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
+  
+</svg>
+
+  </span>
+  <span class='screen-reader'>Categories: </span><a class='category' href='/categories/python-library'>Python Library</a></div>
+
+    
+  
+    
+      
+      
+
+<div class='tags'>
+  <span class='tag-icon'>
+    <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+
+  </span>
+  <span class='screen-reader'>Tags: </span><a class='tag' href='/tags/python'>python</a>, <a class='tag' href='/tags/matplotlib'>Matplotlib</a></div>
+
+    
+  
+</footer>
+
+
+  </article>
+
+  
+    
+<nav class='entry-nav'>
+  <div class='entry-nav-links'><div class='prev-entry'>
+      <a href='https://fevemania.github.io/blog/local-histogram-normalization/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader'>Previous post: </span>Contrast Limited Adaptive Histogram Equalization</a>
+    </div><div class='next-entry'>
+      <a href='https://fevemania.github.io/blog/how-i-build-this-blog-with-hugo/'>
+        <span class='screen-reader'>Next post: </span>How to Deploy A Hugo Blog onto Github<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="4" y1="12" x2="20" y2="12"/>
+  <polyline points="14 6 20 12 14 18"/>
+  
+</svg>
+</span>
+      </a>
+    </div></div>
+</nav>
+
+
+  
+
+  
+    <div class='comments-container'>
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'fevemania-github-io';
+    var disqus_identifier = 'https:\/\/fevemania.github.io\/blog\/matplotlib-figure-vs-axes\/';
+    var disqus_title = 'Intro Matplotlib, What is different in Axes and Figure ?';
+    var disqus_url = 'https:\/\/fevemania.github.io\/blog\/matplotlib-figure-vs-axes\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+  
+</main>
+
+    <footer id='footer' class='footer-container'>
+      <div class='footer'>
+        <div class='social'>
+          <nav aria-label='Social Menu'>
+  <ul class='social-menu'>
+  
+  </ul>
+</nav>
+
+        </div>
+
+        <div class='copyright'>
+          <p>
+    
+  
+  &copy; 2017 MunifTanjim</p>
+
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src='/js/main.af838dd5.js'></script>
+  
+    <script src='/js/custom.js'></script>
+  
+  
+  
+  <script type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\[','\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+           extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+  </script>
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax();
+    var i = 0;
+    var len = all.length;
+    while(i != all.length)
+      all[i++].SourceElement().parentNode.className += ' has-jax';
+    
+  });
+
+  </script>
+
+  <script src="js/prism.js"></script>
+
+</body>
+
+</html>
+
