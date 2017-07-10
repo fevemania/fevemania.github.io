@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang='en'>
 
 <head>
   <meta charset='utf-8'>
@@ -28,6 +28,7 @@ Though we could just search for someone&rsquo;s code whenever we need plot some 
 
 
 
+
 <style>
 code.has-jax {font: inherit;
               font-size: 100%;
@@ -36,6 +37,7 @@ code.has-jax {font: inherit;
               color: #515151;}
 </style>
 <link rel="stylesheet" href="css/prism.css"/>
+
 </head>
 
 
@@ -48,8 +50,8 @@ code.has-jax {font: inherit;
     
     <li>
       <a href='https://fevemania.github.io/'>
-        <img src="home_page_icon.png"/>
         
+        <img src="home_page_icon.png"/>
       </a>
     </li>
     
@@ -185,13 +187,11 @@ axes[1].set_xticklabels(labels)
   <polyline points="10 18 4 12 10 6"/>
   
 </svg>
-Previous
-        </span>
+ Previous</span>
         <span class='screen-reader'>Previous post: </span>Contrast Limited Adaptive Histogram Equalization</a>
     </div><div class='next-entry'>
       <a href='https://fevemania.github.io/post/how-i-build-this-blog-with-hugo/'>
-        <span class='screen-reader'>Next post: </span>How to Deploy A Hugo Blog onto Github<span aria-hidden='true'>
-          Next<svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+        <span class='screen-reader'>Next post: </span>How to Deploy A Hugo Blog onto Github<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="4" y1="12" x2="20" y2="12"/>
   <polyline points="14 6 20 12 14 18"/>
@@ -254,38 +254,39 @@ Previous
   
     <script src='/js/custom.js'></script>
   
-
-<script type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[','\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Queue(function() {
-  var all = MathJax.Hub.getAllJax();
-  var i = 0;
-  var len = all.length;
-  while(i != all.length)
-    all[i++].SourceElement().parentNode.className += ' has-jax';
   
-});
+  
+  <script type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
 
-</script>
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\[','\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+           extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+  </script>
 
-<script src="js/prism.js"></script>
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax();
+    var i = 0;
+    var len = all.length;
+    while(i != all.length)
+      all[i++].SourceElement().parentNode.className += ' has-jax';
+    
+  });
+
+  </script>
+
+  <script src="js/prism.js"></script>
 
 </body>
 

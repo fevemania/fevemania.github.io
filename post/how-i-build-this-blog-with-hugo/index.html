@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang='en'>
 
 <head>
   <meta charset='utf-8'>
@@ -44,6 +44,7 @@ mkdir &lt;your-username&gt;-hugo # 建立資料夾存放網站源碼 cd &lt;your
 
 
 
+
 <style>
 code.has-jax {font: inherit;
               font-size: 100%;
@@ -52,6 +53,7 @@ code.has-jax {font: inherit;
               color: #515151;}
 </style>
 <link rel="stylesheet" href="css/prism.css"/>
+
 </head>
 
 
@@ -64,8 +66,8 @@ code.has-jax {font: inherit;
     
     <li>
       <a href='https://fevemania.github.io/'>
-        <img src="home_page_icon.png"/>
         
+        <img src="home_page_icon.png"/>
       </a>
     </li>
     
@@ -266,8 +268,7 @@ git push -u origin master
   <polyline points="10 18 4 12 10 6"/>
   
 </svg>
-Previous
-        </span>
+ Previous</span>
         <span class='screen-reader'>Previous post: </span>Intro Matplotlib, What is different in Axes and Figure ?</a>
     </div></div>
 </nav>
@@ -324,38 +325,39 @@ Previous
   
     <script src='/js/custom.js'></script>
   
-
-<script type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[','\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Queue(function() {
-  var all = MathJax.Hub.getAllJax();
-  var i = 0;
-  var len = all.length;
-  while(i != all.length)
-    all[i++].SourceElement().parentNode.className += ' has-jax';
   
-});
+  
+  <script type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
 
-</script>
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\[','\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+           extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+  </script>
 
-<script src="js/prism.js"></script>
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax();
+    var i = 0;
+    var len = all.length;
+    while(i != all.length)
+      all[i++].SourceElement().parentNode.className += ' has-jax';
+    
+  });
+
+  </script>
+
+  <script src="js/prism.js"></script>
 
 </body>
 
