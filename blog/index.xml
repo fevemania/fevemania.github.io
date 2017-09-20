@@ -5,10 +5,21 @@
     <link>https://fevemania.github.io/blog/</link>
     <description>Recent content in Blog on fevemania&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 30 Jun 2017 10:55:49 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 19 Sep 2017 15:38:49 +0800</lastBuildDate>
     
 	<atom:link href="https://fevemania.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Mathematic Concept of Unscented Kalman Filter with CTRV model</title>
+      <link>https://fevemania.github.io/blog/mathematic-concept-of-unscented-kalman-filter/</link>
+      <pubDate>Tue, 19 Sep 2017 15:38:49 +0800</pubDate>
+      
+      <guid>https://fevemania.github.io/blog/mathematic-concept-of-unscented-kalman-filter/</guid>
+      <description>CTRV Model (constant turn rate and velocity magnitude model) Here we work with a moving object of interest under CTRV nonlinear motion model which assumes the object can move straight, but they can also move with a constant turn rate and a const velocity magnitude.
+ The State Vector of CTRV model:
+$ x = [ \begin{matrix} p_{x} &amp;amp; p_{y} &amp;amp; v &amp;amp; \psi &amp;amp; \dot{\psi} \end{matrix} ]^T $</description>
+    </item>
     
     <item>
       <title>How to Deploy A Hugo Blog onto Github</title>
