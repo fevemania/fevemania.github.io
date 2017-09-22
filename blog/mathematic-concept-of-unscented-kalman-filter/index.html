@@ -139,7 +139,9 @@ $</code></p>
 <li>$\dot{\psi}$ : yaw rate<br /></li>
 </ul>
 
-<p><img src="img/math_concept_for_ukf/CTRV_state_vector.png" alt="CTRV_state_vector" /></p></li>
+<p><img src="img/math_concept_for_ukf/CTRV_state_vector.png" alt="CTRV_state_vector" /></p>
+
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;the picture above is from Udacity <a href="https://www.udacity.com/course/self-driving-car-engineer-nanodegree--nd013">Self-Driving Nanodegree</a> project under CC BY-NC-ND 4.0.</p></li>
 
 <li><p>Change rate of state:</p>
 
@@ -283,7 +285,8 @@ f(\nu_{k})
 \end{align*}
 $</code></p>
 
-<p><img src="img/math_concept_for_ukf/assume_yaw_rate_low.png" alt="Assume_yaw_rate_low" /></p></li>
+<p><img src="img/math_concept_for_ukf/assume_yaw_rate_low.png" alt="Assume_yaw_rate_low" /><br />
+&emsp;&emsp;the picture above is from Udacity <a href="https://www.udacity.com/course/self-driving-car-engineer-nanodegree--nd013">Self-Driving Nanodegree</a> project under CC BY-NC-ND 4.0.</p></li>
 </ul></li>
 </ul></li>
 </ol>
@@ -292,7 +295,7 @@ $</code></p>
 
 <hr />
 
-<p>What makes UKF and EKF (Extended Kalman Filter) different is the method they uses to tackle with non-linear motion model.</p>
+<p>What makes UKF and EKF (Extended Kalman Filter) different is the method they uses to tackle with non-linear motion model and measurement model.</p>
 
 <ul>
 <li>EKF uses the Jacobian matrix to linearize to non-linear functions.</li>
@@ -301,22 +304,30 @@ $</code></p>
 
 <p>We can split the unscented prediction into three parts.
 1. generate simga points.
-2. insert them into the process function to do predict.
-3. calculate the mean and covariance from the predicted sigma points.</p>
+2. insert them into the process function or measurement function to do unscented transformation.
+3. calculate the mean and covariance from the predicted or measurement sigma points.</p>
+
+<h3 id="prediction-stage">Prediction Stage</h3>
 
 <h4 id="generate-simga-points">Generate Simga Points</h4>
 
-<p>With CTRV model, we have state dimension <code>$ n_{x} = 5 $</code>. However, we should also consider the process noise vector which has two-dimension cause it also has a non-linear effect. <code>$ n_{aug} = 5+2 = 7 $</code>. We will choose <code>$ 2 n_{aug} + 1 $</code> sigma points.</p>
+<p>With CTRV model, we have state dimension <code>$ n_{x} = 5 $</code>. However, we should also consider the process noise vector, which has two-dimension, because it also has a non-linear effect. <code>$ n_{aug} = 5+2 = 7 $</code>. We will choose <code>$ 2 n_{aug} + 1 $</code> sigma points.</p>
 
-<p><img src="img/math_concept_for_ukf/process_noise_vector.png" alt="process_noise_vector" /> <img src="img/math_concept_for_ukf/process_noise_covariance.png" alt="process_noise_covariance" /></p>
+<p><img src="img/math_concept_for_ukf/process_noise_vector.png" alt="process_noise_vector" /><br />
+&emsp;&emsp;&emsp;&emsp;&emsp;the picture above is from Udacity <a href="https://www.udacity.com/course/self-driving-car-engineer-nanodegree--nd013">Self-Driving Nanodegree</a> project under CC BY-NC-ND 4.0.</p>
 
-<p><img src="img/math_concept_for_ukf/generate_simga_points.png" alt="generate_simga_points" /></p>
+<p><img src="img/math_concept_for_ukf/process_noise_covariance.png" alt="process_noise_covariance" /><br />
+&emsp;&emsp;&emsp;&emsp;&emsp;the picture above is from Udacity <a href="https://www.udacity.com/course/self-driving-car-engineer-nanodegree--nd013">Self-Driving Nanodegree</a> project under CC BY-NC-ND 4.0.</p>
+
+<p><img src="img/math_concept_for_ukf/generate_simga_points.png" alt="generate_simga_points" />
+&emsp;&emsp;&emsp;&emsp;&emsp;the picture above is from Udacity <a href="https://www.udacity.com/course/self-driving-car-engineer-nanodegree--nd013">Self-Driving Nanodegree</a> project under CC BY-NC-ND 4.0.</p>
 
 <h4 id="prediction-step">Prediction Step</h4>
 
 <p>We simply insert every sigma point into the process model of CTRV.</p>
 
-<p><img src="img/math_concept_for_ukf/predict_simga_points.png" alt="predict_simga_points" /></p>
+<p><img src="img/math_concept_for_ukf/predict_simga_points.png" alt="predict_simga_points" />
+&emsp;&emsp;&emsp;&emsp;&emsp;the picture above is from Udacity <a href="https://www.udacity.com/course/self-driving-car-engineer-nanodegree--nd013">Self-Driving Nanodegree</a> project under CC BY-NC-ND 4.0.</p>
 
 <h4 id="calculate-mean-and-covraiance-from-the-predicted-sigma-points">Calculate Mean and Covraiance from the Predicted Sigma Points</h4>
 
@@ -330,9 +341,32 @@ Now we consider to do the inverse calculation. (There are several ways to calcul
 <code>$ \omega_{i} = \frac{1}{ 2(\lambda+n_{aug}) } $</code>&emsp;,&emsp; <code>$i = 1 ... 2*n_{aug}$</code></p></li>
 </ul>
 
-<p><img src="img/math_concept_for_ukf/calculate_mean_and_covariance_from_predict_sigma_points.png" alt="calculate_mean_and_covariance_from_predict_sigma_points" /></p>
+<p><img src="img/math_concept_for_ukf/calculate_mean_and_covariance_from_predict_sigma_points.png" alt="calculate_mean_and_covariance_from_predict_sigma_points" />
+&emsp;&emsp;&emsp;&emsp;&emsp;the picture above is from Udacity <a href="https://www.udacity.com/course/self-driving-car-engineer-nanodegree--nd013">Self-Driving Nanodegree</a> project under CC BY-NC-ND 4.0.</p>
 
-<p><strong>Note: There is an error in picture above, the predicted mean formula should be&emsp;<code>$ x_{k+1|k} = \Sigma_{i=0}^{2n_{aug}} \omega_{i} \cdot \chi_{k+1|k,i} = 0 $</code></strong></p>
+<p><strong>Note: There is an error in picture above, the predicted mean formula should be&emsp;<code>$ x_{k+1|k} = \Sigma_{i=0}^{2n_{aug}} \omega_{i} \cdot \chi_{k+1|k,i} $</code></strong></p>
+
+<h3 id="measurement-stage-take-radar-sensor-data-for-instance">Measurement Stage &ndash; Take Radar sensor data for instance</h3>
+
+<p>Like what we do in Prediction Stage, measurement model is also non-linear that we need to put several sigma points into measurement function. But here we could have two shortcut.</p>
+
+<ul>
+<li>First, we could directly put the predicted sigma points generated from Prediction Step into the measurement model.<br /></li>
+<li>Second, we don&rsquo;t have to augment the predicted sigma points with measurement noise vector, because it has no non-linear effect in our measurement model.</li>
+</ul>
+
+<p><img src="img/math_concept_for_ukf/measurement_model.png" alt="measurement_model" /></p>
+
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;the picture above is from Udacity <a href="https://www.udacity.com/course/self-driving-car-engineer-nanodegree--nd013">Self-Driving Nanodegree</a> project under CC BY-NC-ND 4.0.</p>
+
+<p><img src="img/math_concept_for_ukf/measurement_sigma_points.png" alt="measurement_sigma_points" /></p>
+
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;the picture above is from Udacity <a href="https://www.udacity.com/course/self-driving-car-engineer-nanodegree--nd013">Self-Driving Nanodegree</a> project under CC BY-NC-ND 4.0.</p>
+
+<p><img src="img/math_concept_for_ukf/calculate_mean_and_covariance_from_measuremnt_sigma_points.png" alt="calculate_mean_and_covariance_from_measuremnt_sigma_points" /><br />
+&emsp;&emsp;&emsp;&emsp;&emsp;the picture above is from Udacity <a href="https://www.udacity.com/course/self-driving-car-engineer-nanodegree--nd013">Self-Driving Nanodegree</a> project under CC BY-NC-ND 4.0.</p>
+
+<p><strong>Note: There is also an error in predicted measurement mean formula, the predicted mean formula should be&emsp;<code>$ z_{k+1|k} = \Sigma_{i=0}^{2n_{aug}} \omega_{i} \cdot Z_{k+1|k,i} $</code></strong></p>
 
 </div>
 
