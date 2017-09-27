@@ -11,11 +11,11 @@
     
     
     <item>
-      <title>Mathematic Concept of Unscented Kalman Filter with CTRV model</title>
-      <link>https://fevemania.github.io/blog/mathematic-concept-of-unscented-kalman-filter/</link>
+      <title>Mathematic Formula Note of Unscented Kalman Filter with CTRV model</title>
+      <link>https://fevemania.github.io/blog/mathematic-formula-note-of-unscented-kalman-filter/</link>
       <pubDate>Tue, 19 Sep 2017 15:38:49 +0800</pubDate>
       
-      <guid>https://fevemania.github.io/blog/mathematic-concept-of-unscented-kalman-filter/</guid>
+      <guid>https://fevemania.github.io/blog/mathematic-formula-note-of-unscented-kalman-filter/</guid>
       <description>CTRV Model (constant turn rate and velocity magnitude model) Here we work with a moving object of interest under CTRV nonlinear motion model which assumes the object can move straight, but they can also move with a constant turn rate and a const velocity magnitude.
  The State Vector of CTRV model:
 $ x = [ \begin{matrix} p_{x} &amp;amp; p_{y} &amp;amp; v &amp;amp; \psi &amp;amp; \dot{\psi} \end{matrix} ]^T $</description>
